@@ -1,5 +1,17 @@
 from __future__ import annotations
 
+# TODO: enable calling headers when linking to some external API.
+# the example litellm way of doing this is:
+"""
+from litellm import completion
+response = completion(
+    model="ollama/tinyllama:latest", 
+    api_base="http://0.0.0.0:3334",
+    headers={'X-API-Key': 'ok-1bce680275f4d760e647895a9d78bf5decb9d7ca6d543c09753733c82d810dc9'},
+    messages=[{ "content": "respond in 20 words. who are you?","role": "user"}], 
+)
+"""
+
 import json
 import random
 import shlex
