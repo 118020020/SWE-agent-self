@@ -88,6 +88,11 @@ class GenericAPIModelConfig(PydanticBaseModel):
     You can concatenate more than one key by separating them with `:::`, e.g.,
     `key1:::key2`.
     """
+    headers: dict[str, str] | None = None
+    """Custom headers to pass to the API request. This is useful when connecting to external
+    API endpoints that require specific headers for authentication or configuration.
+    Example: {'X-API-Key': 'your-api-key'}
+    """
     stop: list[str] = []
     """Custom stop sequences"""
 
@@ -493,6 +498,11 @@ class LiteLLMModel(AbstractModel):
             return None
         return random.choice(api_keys)
 
+    def _get_headers(self) -> dict[str, str] | None:
+        if self.args.headers is None:
+            return None
+        return self.args.headers
+
     def _query(self, messages: list[dict[str, str]]) -> dict:
         input_tokens: int = litellm.utils.token_counter(messages=messages, model=self.args.name)
         if self.model_max_input_tokens is None:
@@ -518,6 +528,7 @@ class LiteLLMModel(AbstractModel):
             api_version=self.args.api_version,
             api_key=self._get_api_key(),
             fallbacks=self.args.fallbacks,
+            headers=self._get_headers(),
             **completion_kwargs,
             **extra_args,
         )
