@@ -22,6 +22,15 @@ It does so by using configurable [agent-computer interfaces](https://arxiv.org/a
 
 SWE-agent is built and maintained by researchers from Princeton University and Stanford University.
 
+# Important Test Example
+```bash
+sweagent --run \
+  --config default_ollama.yaml \
+  --env.repo.github_url=https://github.com/SWE-agent/test-repo \
+  --problem_statement.github_url=https://github.com/SWE-agent/test-repo/issues/1
+  ```
+
+
 ## 🚀 Get started!
 
 👉 Try SWE-agent in your browser: [![Open in GitHub Codespaces](https://img.shields.io/badge/Open_in_GitHub_Codespaces-gray?logo=github)](https://codespaces.new/SWE-agent/SWE-agent) ([more information](https://swe-agent.com/latest/installation/codespaces/))
